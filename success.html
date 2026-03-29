@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>申請已送出 | Request Received</title>
+  
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#111111">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="專屬預約">
+
+  <style>
+    :root { --bg-color: #F7F7F7; --text-color: #111111; --card-bg-color: #FFFFFF; --accent-color: #000000; --gray-text: #767676; --pending-color: #888888; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center; padding: 20px; -webkit-tap-highlight-color: transparent;}
+    
+    .message-box { background-color: var(--card-bg-color); max-width: 440px; width: 100%; padding: 60px 40px; border-radius: 8px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06); border: 1px solid #E0E0E0; animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    
+    .success-icon { width: 60px; height: 60px; margin: 0 auto 24px; display: block; stroke-width: 2.5; stroke: var(--accent-color); stroke-miterlimit: 10; animation: scale .3s ease-in-out .9s both; }
+    .success-icon__circle { stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 2.5; stroke-miterlimit: 10; stroke: var(--accent-color); fill: none; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards; }
+    .success-icon__check { transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48; animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards; }
+    @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+    @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
+
+    h1 { font-size: 24px; font-weight: 600; letter-spacing: 1px; margin-bottom: 12px; }
+    p { color: var(--gray-text); font-size: 14px; margin-bottom: 32px; line-height: 1.6; }
+    
+    .details { text-align: left; background: #FAFAFA; padding: 24px; border-radius: 4px; font-size: 14px; margin-bottom: 24px; border: 1px solid #E0E0E0; position: relative; }
+    .details::before { content: '預約明細'; position: absolute; top: -10px; left: 16px; background: #fff; padding: 0 8px; font-size: 12px; font-weight: 600; color: var(--accent-color); border: 1px solid #E0E0E0;}
+    .details span { display: block; margin-bottom: 12px; color: #333; display: flex; justify-content: space-between; border-bottom: 1px solid #EEEEEE; padding-bottom: 8px;}
+    .details span:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
+    
+    .important-notice { background: var(--text-color); color: #fff; padding: 16px; border-radius: 4px; font-size: 13px; font-weight: 500; margin-bottom: 24px; line-height: 1.6; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);}
+    
+    .warning-msg { font-size: 13px; color: var(--gray-text); margin-bottom: 32px; font-weight: 500; }
+    .back-link { display: inline-block; color: var(--text-color); text-decoration: none; font-size: 14px; font-weight: 600; border-bottom: 2px solid var(--text-color); padding-bottom: 4px; transition: 0.2s; }
+    .back-link:hover { opacity: 0.6; }
+    
+    .fee-highlight { font-weight: 700; font-size: 16px;}
+    .status-badge { display: inline-block; background: var(--pending-color); color: #fff; padding: 4px 12px; border-radius: 2px; font-size: 12px; font-weight: 600; margin-bottom: 20px; letter-spacing: 1px; }
+
+    @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <div class="message-box">
+    <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+      <circle class="success-icon__circle" cx="26" cy="26" r="25" fill="none"/>
+      <path class="success-icon__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+    </svg>
+    <h1>申請已送出</h1>
+    <div class="status-badge">等待審核中</div>
+    <p>我們已收到您的申請，請耐心等候審核結果。<br>您可隨時至首頁查看進度。</p>
+    
+    <div class="important-notice">
+      為確保您的專屬服務品質<br>預約時段將為您保留 <strong>15 分鐘</strong>，敬請準時抵達。
+    </div>
+
+    <div class="details" id="bookingDetails"></div>
+    <div class="warning-msg">注意：若特殊專案報價過低，將可能無法通過審核。</div>
+    <a href="index.html" class="back-link">返回預約首頁</a>
+  </div>
+  <script>
+    const db = JSON.parse(localStorage.getItem('bookingDB')) || [];
+    const latestBooking = db[db.length - 1];
+    const detailsContainer = document.getElementById('bookingDetails');
+
+    if (latestBooking) {
+      let feeHtml = latestBooking.fee ? `<span><strong>預計報價</strong> <span class="fee-highlight">$${latestBooking.fee}</span></span>` : '';
+      detailsContainer.innerHTML = `
+        <span><strong>預約姓名</strong> <span>${latestBooking.name}</span></span>
+        <span><strong>聯絡方式</strong> <span>${latestBooking.contact}</span></span>
+        <span><strong>預約日期</strong> <span>${latestBooking.date}</span></span>
+        <span><strong>時間長度</strong> <span>${latestBooking.time} (${latestBooking.duration})</span></span>
+        <span><strong>服務項目</strong> <span style="text-align:right; max-width:60%;">${latestBooking.purpose}</span></span>
+        ${feeHtml}
+      `;
+    } else {
+      detailsContainer.innerHTML = `<span style="text-align:center; justify-content:center; border:none;">尚無預約資料。</span>`;
+    }
+
+    // 註冊 PWA Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
