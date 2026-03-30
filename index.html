@@ -256,10 +256,8 @@
         const title = encodeURIComponent("🔔 有新預約申請");
         const body = encodeURIComponent(`客戶：${name}\n預約時段：${time}\n項目：${selected[0]}`);
         const iconURL = "https://leo0979670571-creator.github.io/private-booking/icon-192.png";
-        
         const barkURL = `https://api.day.app/${barkKey}/${title}/${body}?icon=${iconURL}&sound=birdsong&group=Booking&isArchive=1`;
         
-        // 確保通知送出
         await fetch(barkURL, { mode: 'no-cors' }).catch(e => console.log("通知發送錯誤", e));
 
         // 4. 將預約 ID 存入歷史紀錄
@@ -268,7 +266,6 @@
         localStorage.setItem('myBookings', JSON.stringify(myBookings));
         localStorage.setItem('lastBookingID', docRef.id);
 
-        // 跳轉到成功頁面
         setTimeout(() => window.location.href = 'success.html', 300);
       } catch (e) {
         showToast("系統連線異常，請稍後再試");
@@ -276,8 +273,23 @@
       }
     };
 
+    // 🔥 PWA 自動更新與提示邏輯
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js'); });
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then(reg => {
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // 如果偵測到你有在 GitHub 更新代碼，會溫柔地提示客戶重整
+                if (confirm("系統已優化升級，是否立即更新以獲得更流暢的體驗？")) {
+                  window.location.reload();
+                }
+              }
+            });
+          });
+        });
+      });
     }
   </script>
 </body>
