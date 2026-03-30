@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>專屬預約服務 | Modern Booking</title>
+  <title>專屬預約服務</title>
   
   <meta name="robots" content="noindex, nofollow">
 
@@ -65,7 +65,7 @@
     @keyframes expandDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-    .submit-btn { width: 100%; padding: 22px; background: var(--submit-btn-bg); color: var(--submit-btn-text); border: none; border-radius: 2px; font-size: 15px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; margin-top: 20px; transition: all 0.3s ease; }
+    .submit-btn { width: 100%; padding: 22px; background: var(--submit-btn-bg); color: var(--submit-btn-text); border: none; border-radius: 2px; font-size: 15px; font-weight: 700; letter-spacing: 3px; cursor: pointer; margin-top: 20px; transition: all 0.3s ease; }
     .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
     .submit-btn:disabled { background: #BBB; cursor: not-allowed; transform: none; }
 
@@ -79,11 +79,11 @@
     
     .history-card { border: 1px solid var(--form-border-color); padding: 24px; margin-bottom: 20px; }
     .history-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 2px solid #F0F0F0; padding-bottom: 12px;}
-    .status-badge { padding: 4px 10px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #fff;}
+    .status-badge { padding: 4px 10px; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #fff;}
     .status-pending { background-color: var(--status-pending); }
     .status-accepted { background-color: var(--status-accepted); }
     .status-rejected { background-color: #EEE; color: #767676; border: 1px solid #DDD;}
-    .reject-reason-box { margin-top: 15px; padding: 12px; background: #F9F9F9; border-left: 3px solid #DDD; color: #767676; font-size: 13px; font-style: italic; }
+    .reject-reason-box { margin-top: 15px; padding: 12px; background: #F9F9F9; border-left: 3px solid #DDD; color: #767676; font-size: 13px; }
   </style>
 </head>
 <body>
@@ -94,34 +94,34 @@
   <div class="content-wrapper">
     <header>
       <h1>專屬預約服務</h1>
-      <p class="subtitle">PRIVATE APPOINTMENT SERVICE</p>
+      <p class="subtitle">私人預約排程系統</p>
     </header>
 
     <form id="bookingForm">
-      <div class="form-group"><label class="section-title">01. 預約人姓名</label><input type="text" id="userName" placeholder="Full Name" required></div>
-      <div class="form-group"><label class="section-title">02. 聯絡方式</label><input type="text" id="contactInfo" placeholder="LINE ID / Phone" required></div>
+      <div class="form-group"><label class="section-title">01. 預約人姓名</label><input type="text" id="userName" placeholder="請輸入姓名" required></div>
+      <div class="form-group"><label class="section-title">02. 聯絡方式</label><input type="text" id="contactInfo" placeholder="LINE ID 或 手機號碼" required></div>
       <div class="form-group"><label class="section-title">03. 選擇日期</label>
         <div class="calendar-header"><button type="button" class="calendar-nav" id="prevMonth">←</button><div id="monthYearDisplay"></div><button type="button" class="calendar-nav" id="nextMonth">→</button></div>
-        <div class="calendar-grid" id="calendarDays"><div class="calendar-day-name">Sun</div><div class="calendar-day-name">Mon</div><div class="calendar-day-name">Tue</div><div class="calendar-day-name">Wed</div><div class="calendar-day-name">Thu</div><div class="calendar-day-name">Fri</div><div class="calendar-day-name">Sat</div></div>
+        <div class="calendar-grid" id="calendarDays"><div class="calendar-day-name">日</div><div class="calendar-day-name">一</div><div class="calendar-day-name">二</div><div class="calendar-day-name">三</div><div class="calendar-day-name">四</div><div class="calendar-day-name">五</div><div class="calendar-day-name">六</div></div>
         <div class="calendar-grid" id="calendarDates"></div><input type="hidden" id="selectedDate" required>
       </div>
-      <div class="form-group"><label class="section-title">04. 選擇時間與時長</label><div class="dropdown-grid"><select id="timeSelect" required><option value="" disabled selected>Time</option></select><select id="durationSelect" required><option value="" disabled selected>Duration</option><option value="30分鐘">30 Mins</option><option value="1小時">1 Hour</option><option value="1.5小時">1.5 Hours</option><option value="2小時">2 Hours</option><option value="2.5小時">2.5 Hours</option><option value="3小時">3 Hours</option><option value="3.5小時">3.5 Hours</option><option value="4小時">4 Hours</option><option value="4小時以上">4+ Hours</option></select></div></div>
+      <div class="form-group"><label class="section-title">04. 選擇時間與時長</label><div class="dropdown-grid"><select id="timeSelect" required><option value="" disabled selected>選擇時間</option></select><select id="durationSelect" required><option value="" disabled selected>選擇時長</option><option value="30分鐘">30 分鐘</option><option value="1小時">1 小時</option><option value="1.5小時">1.5 小時</option><option value="2小時">2 小時</option><option value="2.5小時">2.5 小時</option><option value="3小時">3 小時</option><option value="3.5小時">3.5 小時</option><option value="4小時">4 小時</option><option value="4小時以上">4 小時以上</option></select></div></div>
       <div class="form-group"><label class="section-title">05. 服務項目</label>
-        <div class="purpose-grid" id="purposeContainer"><button type="button" class="option-btn purpose-btn" data-value="作業討論">作業討論</button><button type="button" class="option-btn purpose-btn" data-value="食物外送">食物外送</button><button type="button" class="option-btn purpose-btn" data-value="工作幫手">工作幫手</button><button type="button" class="option-btn purpose-btn" data-value="跑腿代買">跑腿代買</button><button type="button" class="option-btn purpose-btn" data-value="陪伴聊天">陪伴聊天</button><button type="button" class="option-btn purpose-btn special-btn" data-value="🍆 特殊專案" style="font-weight:700; border-width: 2px;">🍆 特殊專案</button><button type="button" class="option-btn purpose-btn" data-value="其他" id="otherBtn" style="grid-column: span 2;">其他需求 / OTHER</button></div>
+        <div class="purpose-grid" id="purposeContainer"><button type="button" class="option-btn purpose-btn" data-value="作業討論">作業討論</button><button type="button" class="option-btn purpose-btn" data-value="食物外送">食物外送</button><button type="button" class="option-btn purpose-btn" data-value="工作幫手">工作幫手</button><button type="button" class="option-btn purpose-btn" data-value="跑腿代買">跑腿代買</button><button type="button" class="option-btn purpose-btn" data-value="陪伴聊天">陪伴聊天</button><button type="button" class="option-btn purpose-btn special-btn" data-value="🍆 特殊專案" style="font-weight:700; border-width: 2px;">🍆 特殊專案</button><button type="button" class="option-btn purpose-btn" data-value="其他" id="otherBtn" style="grid-column: span 2;">其他需求</button></div>
         <div class="custom-purpose" id="eggplantWrapper">
           <label class="section-title" style="margin-top: 0; margin-bottom: 8px; color: var(--accent-color); border:none;">進階項目細節</label>
-          <p style="font-size:11px; color:var(--status-pending); margin-bottom:12px; font-weight:700; letter-spacing: 1px;">※ MINIMUM $200 PER SESSION</p>
+          <p style="font-size:11px; color:var(--status-pending); margin-bottom:12px; font-weight:700; letter-spacing: 1px;">※ 此專案最低報價為 $200</p>
           <div class="purpose-grid" style="margin-bottom: 16px;"><button type="button" class="option-btn sub-purpose-btn" data-value="撫摸">撫摸</button><button type="button" class="option-btn sub-purpose-btn" data-value="聞香">聞香</button><button type="button" class="option-btn sub-purpose-btn" data-value="觀賞">觀賞</button><button type="button" class="option-btn sub-purpose-btn" data-value="把玩">把玩</button><button type="button" class="option-btn sub-purpose-btn" data-value="深入交流">深入交流</button></div>
-          <select id="specialFeeSelect"><option value="" disabled selected>Proposed Fee / 預計支付</option></select>
+          <select id="specialFeeSelect"><option value="" disabled selected>預計支付金額</option></select>
         </div>
-        <div class="custom-purpose" id="customPurposeWrapper"><input type="text" id="customPurposeInput" placeholder="Details of your request..."></div>
+        <div class="custom-purpose" id="customPurposeWrapper"><input type="text" id="customPurposeInput" placeholder="請填寫具體需求..."></div>
       </div>
-      <button type="submit" class="submit-btn" id="submitBtn">CONFIRM & SEND</button>
+      <button type="submit" class="submit-btn" id="submitBtn">確認送出</button>
     </form>
   </div>
 
   <div class="modal-overlay" id="historyModal">
-    <div class="modal-content"><button class="close-modal" id="closeHistoryBtn">×</button><h2 style="font-size: 20px; font-weight: 700; margin-bottom: 24px; border-bottom: 4px solid var(--accent-color); padding-bottom: 8px; display:inline-block; letter-spacing: 2px;">RECORDS</h2><div id="historyList"></div></div>
+    <div class="modal-content"><button class="close-modal" id="closeHistoryBtn">×</button><h2 style="font-size: 20px; font-weight: 700; margin-bottom: 24px; border-bottom: 4px solid var(--accent-color); padding-bottom: 8px; display:inline-block; letter-spacing: 2px;">預約紀錄</h2><div id="historyList"></div></div>
   </div>
 
   <script type="module">
@@ -149,9 +149,9 @@
     async function renderHistory() {
       const list = document.getElementById('historyList');
       const myIDs = JSON.parse(localStorage.getItem('myBookings')) || [];
-      if(myIDs.length === 0) { list.innerHTML = '<p style="color: #999; text-align:center; padding: 40px 0; font-size:13px;">NO BOOKINGS FOUND.</p>'; return; }
+      if(myIDs.length === 0) { list.innerHTML = '<p style="color: #999; text-align:center; padding: 40px 0; font-size:13px;">尚無預約紀錄。</p>'; return; }
       
-      list.innerHTML = '<p style="text-align:center; padding:20px; font-size:12px; color:#888;">LOADING...</p>';
+      list.innerHTML = '<p style="text-align:center; padding:20px; font-size:12px; color:#888;">讀取中...</p>';
       let html = '';
       
       for (const id of myIDs.reverse()) {
@@ -178,8 +178,8 @@
     
     function renderCalendar(month, year) {
       calendarDates.innerHTML = ''; const firstDay = new Date(year, month, 1).getDay(), daysInMonth = new Date(year, month + 1, 0).getDate();
-      const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-      monthYearDisplay.textContent = `${monthNames[month]} ${year}`;
+      const monthNames = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+      monthYearDisplay.textContent = `${year}年 ${monthNames[month]}`;
       prevMonthBtn.disabled = (year === today.getFullYear() && month === today.getMonth());
       for (let i = 0; i < firstDay; i++) { const d = document.createElement('div'); d.className = 'calendar-date empty'; calendarDates.appendChild(d); }
       for (let i = 1; i <= daysInMonth; i++) {
@@ -225,10 +225,10 @@
       if(!selectedDateInput.value) { showToast("請選擇日期"); return; }
       if(selected.length === 0) { showToast("請選擇項目"); return; }
 
-      btn.disabled = true; btn.innerHTML = "SENDING...";
+      btn.disabled = true; btn.innerHTML = "傳送中...";
       
       try {
-        // 🔥 1. 將預約資料暫存在本地端，讓成功頁面可以「瞬間讀取」
+        // 1. 本地快取：給 success.html 秒讀用
         const latestData = {
           name: name,
           date: selectedDateInput.value,
@@ -238,29 +238,21 @@
         };
         localStorage.setItem('latestBookingData', JSON.stringify(latestData));
 
-        // 2. 寫入 Firebase 雲端資料庫
         const docRef = await addDoc(collection(db, "bookings"), {
-          name: name,
-          contact: document.getElementById('contactInfo').value,
-          date: selectedDateInput.value,
-          time: time,
-          duration: document.getElementById('durationSelect').value,
-          purpose: selected.join(' | '),
-          fee: fee,
-          status: 'pending',
-          createdAt: new Date()
+          name: name, contact: document.getElementById('contactInfo').value,
+          date: selectedDateInput.value, time: time, duration: document.getElementById('durationSelect').value,
+          purpose: selected.join(' | '), fee: fee, status: 'pending', createdAt: new Date()
         });
         
-        // 🔥 3. 發送手機 Bark 通知 (使用 no-cors 強制突破 Safari 限制發送)
+        // 2. 🔥 極簡版 Bark 通知：只顯示有新預約
         const barkKey = "3cz7o3uJJN74Z3ETvsq5jW";
-        const title = encodeURIComponent("🔔 有新預約申請");
-        const body = encodeURIComponent(`客戶：${name}\n預約時段：${time}\n項目：${selected[0]}`);
+        const title = encodeURIComponent("🔔 收到新預約申請");
+        const body = encodeURIComponent("請開啟後台進行審核");
         const iconURL = "https://leo0979670571-creator.github.io/private-booking/icon-192.png";
         const barkURL = `https://api.day.app/${barkKey}/${title}/${body}?icon=${iconURL}&sound=birdsong&group=Booking&isArchive=1`;
         
         await fetch(barkURL, { mode: 'no-cors' }).catch(e => console.log("通知發送錯誤", e));
 
-        // 4. 將預約 ID 存入歷史紀錄
         let myBookings = JSON.parse(localStorage.getItem('myBookings')) || [];
         myBookings.push(docRef.id);
         localStorage.setItem('myBookings', JSON.stringify(myBookings));
@@ -269,11 +261,10 @@
         setTimeout(() => window.location.href = 'success.html', 300);
       } catch (e) {
         showToast("系統連線異常，請稍後再試");
-        btn.disabled = false; btn.innerHTML = "CONFIRM & SEND";
+        btn.disabled = false; btn.innerHTML = "確認送出";
       }
     };
 
-    // 🔥 PWA 自動更新與提示邏輯
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js').then(reg => {
@@ -281,8 +272,7 @@
             const newWorker = reg.installing;
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                // 如果偵測到你有在 GitHub 更新代碼，會溫柔地提示客戶重整
-                if (confirm("系統已優化升級，是否立即更新以獲得更流暢的體驗？")) {
+                if (confirm("系統已更新，是否重新載入以確保功能正常？")) {
                   window.location.reload();
                 }
               }

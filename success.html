@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>申請已送出 | Request Received</title>
+  <title>申請已送出</title>
   <link rel="manifest" href="manifest.json">
   <style>
     :root { --bg-color: #F7F7F7; --text-color: #111111; --card-bg-color: #FFFFFF; --accent-color: #000000; --gray-text: #767676; --pending-color: #888888; }
@@ -21,15 +21,15 @@
 <body>
   <div class="message-box">
     <h1>申請已送出</h1>
-    <p style="color:#888; margin-bottom:24px; font-weight:600; font-size:13px; letter-spacing:2px;">STATUS: 審核中 (PENDING)</p>
-    <div class="important-notice">為確保服務品質，預約時段將保留 15 分鐘。</div>
+    <p style="color:#888; margin-bottom:24px; font-weight:600; font-size:13px; letter-spacing:2px;">目前狀態：審核中</p>
+    <div class="important-notice">為確保您的專屬服務品質，預約時段將為您保留 15 分鐘。</div>
     <div class="details" id="bookingDetails">
       </div>
-    <a href="index.html" class="back-link">返回首頁 RETURN</a>
+    <a href="index.html" class="back-link">返回預約首頁</a>
   </div>
 
   <script>
-    // 瞬間從本地記憶體抓取剛才填寫的資料，不需要等網路！
+    // 瞬間從本地記憶體抓取剛才填寫的資料，不需要等網路連線
     const b = JSON.parse(localStorage.getItem('latestBookingData'));
     if (b) {
       document.getElementById('bookingDetails').innerHTML = `
@@ -40,7 +40,7 @@
         ${b.fee ? `<span><strong>預計報價</strong> <span style="font-weight:800; color:#000;">$${b.fee}</span></span>` : ''}
       `;
     } else {
-      document.getElementById('bookingDetails').innerHTML = `<p style="text-align:center;">資料讀取異常</p>`;
+      document.getElementById('bookingDetails').innerHTML = `<p style="text-align:center;">尚無最新預約資料。</p>`;
     }
   </script>
 </body>
